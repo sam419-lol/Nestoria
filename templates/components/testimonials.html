@@ -1,0 +1,49 @@
+<section class="testimonials">
+    <div class="container">
+        <h2 class="section-title">What Our Clients Say</h2>
+
+        <div class="testimonials-grid">
+            {% set testimonials = [
+                {
+                    "avatar": "https://randomuser.me/api/portraits/women/44.jpg",
+                    "name": "Sarah Johnson",
+                    "stars": 5,
+                    "quote": "Nestoria made finding our dream home so easy. The process was smooth and fully professional!"
+                },
+                {
+                    "avatar": "https://randomuser.me/api/portraits/men/32.jpg",
+                    "name": "David Miller",
+                    "stars": 5,
+                    "quote": "Amazing service and verified listings. I got the perfect apartment in just a few days!"
+                },
+                {
+                    "avatar": "https://randomuser.me/api/portraits/women/68.jpg",
+                    "name": "Emily Carter",
+                    "stars": 5,
+                    "quote": "A trusted platform with real value. Highly recommended for anyone looking for a new home."
+                }
+            ] %}
+
+            {% for t in testimonials %}
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    {% if t.avatar.startswith('http') %}
+                        <img src="{{ t.avatar }}" alt="{{ t.name }}">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='images/' + t.avatar) }}" alt="{{ t.name }}">
+                    {% endif %}
+                    <div>
+                        <h4>{{ t.name }}</h4>
+                        <div class="stars">
+                            {% for i in range(t.stars) %}
+                                <i class="fa-solid fa-star"></i>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <p>"{{ t.quote }}"</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

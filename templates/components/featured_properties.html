@@ -1,0 +1,53 @@
+<section class="featured-properties">
+    <div class="container">
+        <div class="section-header">
+            <h2>Featured Properties</h2>
+            <a href="#" class="link-arrow">View All Properties <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="properties-grid">
+            {% set properties = [
+                {
+                    "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+                    "badge": "Featured",
+                    "badge_class": "badge-featured",
+                    "title": "Modern Ocean Villa",
+                    "location": "Miami, Florida",
+                    "beds": "5 Beds",
+                    "baths": "4 Baths",
+                    "area": "4,200 sqft",
+                    "price": "$4,200",
+                    "period": "/ month"
+                },
+                {
+                    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80",
+                    "badge": "New",
+                    "badge_class": "badge-new",
+                    "title": "Urban Luxury Apartment",
+                    "location": "Chicago, Illinois",
+                    "beds": "3 Beds",
+                    "baths": "2 Baths",
+                    "area": "2,100 sqft",
+                    "price": "$2,850",
+                    "period": "/ month"
+                },
+                {
+                    "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+                    "badge": "Hot Deal",
+                    "badge_class": "badge-hot",
+                    "title": "Sunny Autumn House",
+                    "location": "Austin, Texas",
+                    "beds": "4 Beds",
+                    "baths": "3 Baths",
+                    "area": "3,600 sqft",
+                    "price": "$3,100",
+                    "period": "/ month"
+                }
+            ] %}
+
+            {% for property in properties %}
+                {% include "components/property_card.html" %}
+            {% endfor %}
+        </div>
+    </div>
+</section>

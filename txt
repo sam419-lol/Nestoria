@@ -1,0 +1,35 @@
+nestoria/
+│
+├── templates/
+│   ├── base.html
+│   ├── index.html
+│   │
+│   └── components/
+│       ├── header.html
+│       ├── hero.html
+│       ├── features.html
+│       ├── why_choose.html
+│       ├── featured_properties.html
+│       ├── how_it_works.html
+│       ├── testimonials.html
+│       ├── cta_banner.html
+│       ├── footer.html
+│       └── property_card.html
+│
+└── static/
+    ├── css/
+    │   └── style.css
+    │
+    ├── js/
+    │   └── script.js
+    │
+    └── images/
+        ├── hero-bg.jpg
+        ├── why-choose.jpg
+        ├── property-1.jpg
+        ├── property-2.jpg
+        ├── property-3.jpg
+        ├── avatar-1.jpg
+        ├── avatar-2.jpg
+        ├── avatar-3.jpg
+        └── cta-bg.jpg

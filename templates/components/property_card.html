@@ -1,0 +1,33 @@
+<div class="property-card">
+    <div class="property-image">
+        {% if property.image.startswith('http') %}
+            <img src="{{ property.image }}" alt="{{ property.title }}">
+        {% else %}
+            <img src="{{ url_for('static', filename='images/' + property.image) }}" alt="{{ property.title }}">
+        {% endif %}
+        <span class="property-badge {{ property.badge_class }}">{{ property.badge }}</span>
+        <button class="fav-btn" aria-label="Add to favorites">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+    </div>
+
+    <div class="property-body">
+        <h3>{{ property.title }}</h3>
+        <p class="property-location">
+            <i class="fa-solid fa-location-dot"></i> {{ property.location }}
+        </p>
+
+        <ul class="property-specs">
+            <li><i class="fa-solid fa-bed"></i> {{ property.beds }}</li>
+            <li><i class="fa-solid fa-bath"></i> {{ property.baths }}</li>
+            <li><i class="fa-solid fa-ruler-combined"></i> {{ property.area }}</li>
+        </ul>
+
+        <div class="property-footer">
+            <div class="property-price">
+                {{ property.price }} <span>{{ property.period }}</span>
+            </div>
+            <button class="btn btn-dark">View Details</button>
+        </div>
+    </div>
+</div>
