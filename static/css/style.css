@@ -807,7 +807,6 @@ ul { list-style: none; }
     box-shadow: var(--shadow-lg);
 }
 
-/* Right-side background image, faded into the purple gradient */
 .cta-bg-image {
     position: absolute;
     top: 0;
@@ -824,7 +823,6 @@ ul { list-style: none; }
     z-index: 0;
 }
 
-/* Purple gradient tint over the image so it blends in */
 .cta-inner::before {
     content: '';
     position: absolute;
@@ -1218,13 +1216,13 @@ ul { list-style: none; }
     -webkit-backdrop-filter: blur(6px);
 }
 
+/* Fixed-height card: header + progress + footer stay pinned, only the step scrolls */
 .apply-modal-card {
     position: relative;
     background: #fff;
     border-radius: 24px;
     width: 100%;
     max-width: 720px;
-    /* Fixed vertical bounds so the modal itself never scrolls — only the step does */
     height: 90vh;
     max-height: 760px;
     display: flex;
@@ -1246,6 +1244,7 @@ ul { list-style: none; }
     gap: 16px;
     padding: 24px 28px 16px;
     border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
 }
 .apply-modal-tag {
     display: inline-block;
@@ -1286,10 +1285,10 @@ ul { list-style: none; }
 .apply-progress {
     height: 5px;
     background: var(--primary-light);
-    margin: 0 28px;
+    margin: 16px 28px 0;
     border-radius: 999px;
     overflow: hidden;
-    margin-top: 16px;
+    flex-shrink: 0;
 }
 .apply-progress-bar {
     height: 100%;
@@ -1306,6 +1305,7 @@ ul { list-style: none; }
     font-size: 12px;
     color: var(--text-light);
     font-weight: 500;
+    flex-shrink: 0;
 }
 .apply-progress-meta span:last-child {
     color: var(--primary);
@@ -1320,21 +1320,20 @@ ul { list-style: none; }
     min-height: 0;
 }
 
-/* Steps track — horizontal slide container */
+/* Steps track — the container that holds the stacked, scrollable steps */
 .apply-steps-track {
     position: relative;
     flex: 1;
     min-height: 0;               /* CRITICAL — allows flex child to shrink and scroll */
-    overflow: hidden;            /* outer container hides overflow; each step scrolls internally */
-    padding: 0;
+    overflow: hidden;            /* outer hides overflow; each step scrolls internally */
 }
 
-/* Each step is absolutely positioned and animates in/out */
+/* Each step fills the track and scrolls its own content */
 .apply-step {
     position: absolute;
     inset: 0;
-    padding: 24px 28px 8px;
-    overflow-y: auto;            /* scrolls when content exceeds height */
+    padding: 24px 28px 24px;
+    overflow-y: auto;
     overflow-x: hidden;
     opacity: 0;
     visibility: hidden;
@@ -1353,7 +1352,6 @@ ul { list-style: none; }
     opacity: 1;
     visibility: visible;
     transform: translateX(0);
-    position: absolute;          /* keep absolute so steps stack */
 }
 
 .apply-step.exit-left {
@@ -1370,15 +1368,13 @@ ul { list-style: none; }
 .apply-step::-webkit-scrollbar-thumb {
     background: rgba(91, 79, 233, 0.35);
     border-radius: 999px;
-    border: 2px solid #fff;      /* creates a subtle inset look */
+    border: 2px solid #fff;
 }
 .apply-step::-webkit-scrollbar-thumb:hover {
     background: rgba(91, 79, 233, 0.55);
 }
-.apply-step.exit-left {
-    transform: translateX(-30px);
-}
 
+/* Subtle bottom fade to hint there's more to scroll */
 .apply-steps-track::after {
     content: '';
     position: absolute;
@@ -1490,7 +1486,7 @@ ul { list-style: none; }
 .apply-upload.small { padding: 18px 16px; }
 .apply-upload.small i { font-size: 18px; }
 
-/* Footer controls */
+/* Footer controls — pinned to the bottom of the card */
 .apply-modal-footer {
     display: flex;
     justify-content: space-between;
@@ -1499,6 +1495,9 @@ ul { list-style: none; }
     padding: 16px 28px 20px;
     border-top: 1px solid var(--border);
     background: #fff;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 3;
 }
 .apply-btn-ghost {
     background: transparent;
@@ -1558,12 +1557,13 @@ ul { list-style: none; }
 /* Body scroll lock */
 body.modal-open { overflow: hidden; }
 
-/* Responsive */
+/* Modal responsive */
 @media (max-width: 768px) {
     .apply-modal { padding: 0; align-items: flex-end; }
     .apply-modal-card {
         max-width: 100%;
-        max-height: 95vh;
+        height: 94vh;
+        max-height: none;
         border-radius: 24px 24px 0 0;
         transform: translateY(40px);
     }
@@ -1571,10 +1571,16 @@ body.modal-open { overflow: hidden; }
 
     .apply-modal-header { padding: 20px 20px 14px; }
     .apply-modal-title-block h3 { font-size: 17px; }
-    .apply-progress { margin: 0 20px; }
+    .apply-progress { margin: 14px 20px 0; }
     .apply-progress-meta { padding: 10px 20px 0; }
-    .apply-steps-track { padding: 20px 20px 8px; min-height: 380px; }
-    .apply-step { padding: 0 20px; }
+
+    .apply-steps-track { min-height: 0; }
+    .apply-step {
+        padding: 20px 20px 20px;
+        scrollbar-width: none;
+    }
+    .apply-step::-webkit-scrollbar { display: none; }
+
     .apply-grid { grid-template-columns: 1fr; gap: 14px; }
     .apply-step-title { font-size: 14px; margin-bottom: 16px; }
     .apply-modal-footer { padding: 14px 20px 18px; }
@@ -1798,6 +1804,20 @@ body.modal-open { overflow: hidden; }
         mask-image: linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 80%);
         -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 80%);
     }
+
+    /* ---------- Jobs Page ---------- */
+    .jobs-hero { padding: 40px 0 28px; }
+    .jobs-hero h1 { font-size: 30px; }
+    .jobs-hero p { font-size: 14px; }
+    .jobs-toolbar { flex-direction: column; align-items: stretch; gap: 12px; }
+    .jobs-search { min-width: 0; width: 100%; }
+    .jobs-grid { grid-template-columns: 1fr; gap: 16px; }
+    .job-card { padding: 20px; }
+    .job-card-header { flex-wrap: wrap; }
+    .job-title-block h3 { font-size: 16px; }
+    .job-meta { gap: 12px; }
+    .job-footer { flex-direction: column; align-items: stretch; }
+    .job-apply-btn { width: 100%; justify-content: center; }
 }
 
 /* ============================================
