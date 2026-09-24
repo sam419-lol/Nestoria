@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Jobs at Nestoria - Live Elevated{% endblock %}
+
+{% block content %}
+
+
+<!-- ============ Jobs Hero ============ -->
+<section class="jobs-hero">
+    <div class="container">
+        <span class="section-tag">Careers</span>
+        <h1>Join the Nestoria Team</h1>
+        <p>Help thousands of families find their dream homes. We're hiring across real estate, sales, marketing, and engineering.</p>
+    </div>
+</section>
+
+<!-- ============ Jobs List ============ -->
+<section class="jobs-list">
+    <div class="container">
+
+        <!-- Filter / search row -->
+        <div class="jobs-toolbar">
+            <div class="jobs-count">
+                <strong>{{ jobs|length }}</strong> open positions
+            </div>
+            <div class="jobs-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="jobSearch" placeholder="Search jobs by title or location...">
+            </div>
+        </div>
+
+        <!-- Job cards -->
+        <div class="jobs-grid" id="jobsGrid">
+            {% for job in jobs %}
+            <div class="job-card" data-title="{{ job.title|lower }}" data-location="{{ job.location|lower }}">
+                <div class="job-card-header">
+                    <div class="job-icon">
+                        <i class="fa-solid {{ job.icon }}"></i>
+                    </div>
+                    <div class="job-title-block">
+                        <h3>{{ job.title }}</h3>
+                        <p class="job-company">
+                            <i class="fa-solid fa-building"></i> {{ job.company }}
+                        </p>
+                    </div>
+                    <span class="job-type job-type-{{ job.type_class }}">{{ job.type }}</span>
+                </div>
+
+                <ul class="job-meta">
+                    <li><i class="fa-solid fa-location-dot"></i> {{ job.location }}</li>
+                    <li><i class="fa-solid fa-briefcase"></i> {{ job.experience }}</li>
+                    <li><i class="fa-solid fa-dollar-sign"></i> {{ job.salary }}</li>
+                </ul>
+
+                <p class="job-description">{{ job.description }}</p>
+
+                <div class="job-tags">
+                    {% for tag in job.tags %}
+                    <span class="job-tag">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="job-footer">
+                    <span class="job-posted">
+                        <i class="fa-regular fa-clock"></i> Posted {{ job.posted }}
+                    </span>
+                    <button class="btn btn-primary job-apply-btn"
+                            data-job-title="{{ job.title }}"
+                            data-job-id="{{ job.id }}">
+                        Apply Now <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Empty state -->
+        <div class="jobs-empty" id="jobsEmpty" hidden>
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <h3>No jobs match your search</h3>
+            <p>Try a different keyword or clear your search.</p>
+        </div>
+
+    </div>
+</section>
+
+{% include "components/job_apply_modal.html" %}
+
+{% endblock %}

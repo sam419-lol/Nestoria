@@ -108,3 +108,191 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
+    // ---------- Jobs Page: Search Filter ----------
+    const jobSearch = document.getElementById('jobSearch');
+    const jobsGrid = document.getElementById('jobsGrid');
+    const jobsEmpty = document.getElementById('jobsEmpty');
+
+    if (jobSearch && jobsGrid && jobsEmpty) {
+        const jobCards = jobsGrid.querySelectorAll('.job-card');
+
+        jobSearch.addEventListener('input', () => {
+            const query = jobSearch.value.trim().toLowerCase();
+            let visibleCount = 0;
+
+            jobCards.forEach(card => {
+                const title = card.dataset.title || '';
+                const location = card.dataset.location || '';
+                const matches = title.includes(query) || location.includes(query);
+
+                card.style.display = matches ? '' : 'none';
+                if (matches) visibleCount++;
+            });
+
+            jobsEmpty.hidden = visibleCount > 0;
+            jobsGrid.style.display = visibleCount > 0 ? '' : 'none';
+        });
+    }
+
+        // ---------- Apply Modal Wizard ----------
+    const applyModal = document.getElementById('applyModal');
+    const applyForm = document.getElementById('applyForm');
+    const applyStepsTrack = document.getElementById('applyStepsTrack');
+    const applySteps = document.querySelectorAll('.apply-step');
+    const applyProgressBar = document.getElementById('applyProgressBar');
+    const applyStepLabel = document.getElementById('applyStepLabel');
+    const applyStepName = document.getElementById('applyStepName');
+    const applyBackBtn = document.getElementById('applyBackBtn');
+    const applyNextBtn = document.getElementById('applyNextBtn');
+    const applySubmitBtn = document.getElementById('applySubmitBtn');
+    const applySuccess = document.getElementById('applySuccess');
+    const applyJobTitle = document.getElementById('applyJobTitle');
+
+    const stepNames = [
+        'Personal Information',
+        'Contact Information',
+        'Identification & Verification',
+        'Educational Background',
+        'Employment History',
+        'Professional Information',
+        'Salary & Payroll Information',
+        'Emergency & Other Information'
+    ];
+
+    let currentStep = 0;
+    const totalSteps = applySteps.length;
+
+    function showStep(index) {
+        applySteps.forEach((step, i) => {
+            step.classList.remove('active', 'exit-left');
+            if (i === index) {
+                step.classList.add('active');
+            } else if (i < index) {
+                step.classList.add('exit-left');
+            }
+        });
+
+        // Progress
+        const percent = ((index + 1) / totalSteps) * 100;
+        applyProgressBar.style.width = percent + '%';
+        applyStepLabel.textContent = `Step ${index + 1} of ${totalSteps}`;
+        applyStepName.textContent = stepNames[index];
+
+        // Buttons
+        applyBackBtn.disabled = index === 0;
+        const isLast = index === totalSteps - 1;
+        applyNextBtn.hidden = isLast;
+        applySubmitBtn.hidden = !isLast;
+
+        // Reset scroll within the step
+        applySteps[index].scrollTop = 0;
+    }
+
+    function validateCurrentStep() {
+        const step = applySteps[currentStep];
+        const fields = step.querySelectorAll('input[required], select[required], textarea[required]');
+        let valid = true;
+
+        fields.forEach(field => {
+            field.classList.remove('invalid');
+            if (field.type === 'file') {
+                if (!field.files || field.files.length === 0) {
+                    field.classList.add('invalid');
+                    valid = false;
+                }
+            } else if (!field.value.trim()) {
+                field.classList.add('invalid');
+                valid = false;
+            }
+        });
+
+        if (!valid) {
+            // Shake the footer for feedback
+            const footer = document.querySelector('.apply-modal-footer');
+            footer.classList.add('shake');
+            setTimeout(() => footer.classList.remove('shake'), 400);
+        }
+        return valid;
+    }
+
+    // Shake animation injection
+    const shakeStyle = document.createElement('style');
+    shakeStyle.textContent = `
+        @keyframes shake-x {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+        .apply-modal-footer.shake { animation: shake-x 0.35s ease; }
+    `;
+    document.head.appendChild(shakeStyle);
+
+    // Open modal
+    document.querySelectorAll('.job-apply-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const title = btn.dataset.jobTitle || 'this position';
+            applyJobTitle.textContent = title;
+
+            currentStep = 0;
+            applyForm.reset();
+            applySuccess.hidden = true;
+            applyForm.style.display = 'flex';
+            applySteps.forEach(s => s.classList.remove('invalid'));
+            showStep(0);
+
+            applyModal.classList.add('open');
+            applyModal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+        });
+    });
+
+    // Close modal
+    document.querySelectorAll('[data-close-modal]').forEach(el => {
+        el.addEventListener('click', () => {
+            applyModal.classList.remove('open');
+            applyModal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+        });
+    });
+
+    // ESC key to close
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && applyModal.classList.contains('open')) {
+            applyModal.classList.remove('open');
+            applyModal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+        }
+    });
+
+    // Next / Back
+    applyNextBtn.addEventListener('click', () => {
+        if (!validateCurrentStep()) return;
+        if (currentStep < totalSteps - 1) {
+            currentStep++;
+            showStep(currentStep);
+        }
+    });
+
+    applyBackBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+            currentStep--;
+            showStep(currentStep);
+        }
+    });
+
+    // Submit
+    applyForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!validateCurrentStep()) return;
+
+        applyForm.style.display = 'none';
+        applySuccess.hidden = false;
+
+        // Reset the modal state after a delay if user doesn't close
+        setTimeout(() => {
+            if (applyModal.classList.contains('open')) {
+                // stay on success — user can close manually
+            }
+        }, 100);
+    });

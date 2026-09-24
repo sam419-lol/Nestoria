@@ -1,0 +1,391 @@
+<div class="apply-modal" id="applyModal" aria-hidden="true">
+    <div class="apply-modal-backdrop" data-close-modal></div>
+
+    <div class="apply-modal-card" role="dialog" aria-modal="true" aria-labelledby="applyModalTitle">
+        <!-- Header -->
+        <div class="apply-modal-header">
+            <div class="apply-modal-title-block">
+                <span class="apply-modal-tag">Job Application</span>
+                <h3 id="applyModalTitle">Apply for <span id="applyJobTitle">this position</span></h3>
+            </div>
+            <button class="apply-modal-close" data-close-modal aria-label="Close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="apply-progress">
+            <div class="apply-progress-bar" id="applyProgressBar"></div>
+        </div>
+        <div class="apply-progress-meta">
+            <span id="applyStepLabel">Step 1 of 8</span>
+            <span id="applyStepName">Personal Information</span>
+        </div>
+
+        <!-- Form -->
+        <form id="applyForm" novalidate>
+            <div class="apply-steps-track" id="applyStepsTrack">
+
+                <!-- STEP 1: Personal -->
+                <div class="apply-step" data-step="0">
+                    <h4 class="apply-step-title"><i class="fa-solid fa-user"></i> Personal Information</h4>
+                    <div class="apply-grid">
+                        <div class="apply-field full">
+                            <label>Full Legal Name <span>*</span></label>
+                            <input type="text" name="full_name" required placeholder="e.g. Jane Doe">
+                        </div>
+                        <div class="apply-field">
+                            <label>Date of Birth <span>*</span></label>
+                            <input type="date" name="dob" required>
+                        </div>
+                        <div class="apply-field">
+                            <label>Gender <span>*</span></label>
+                            <select name="gender" required>
+                                <option value="">Select...</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="apply-field">
+                            <label>Nationality <span>*</span></label>
+                            <input type="text" name="nationality" required placeholder="e.g. Nigerian">
+                        </div>
+                        <div class="apply-field">
+                            <label>Marital Status <span>*</span></label>
+                            <select name="marital_status" required>
+                                <option value="">Select...</option>
+                                <option>Single</option>
+                                <option>Married</option>
+                                <option>Divorced</option>
+                                <option>Widowed</option>
+                            </select>
+                        </div>
+                        <div class="apply-field full">
+                            <label>Passport Photograph <span>*</span></label>
+                            <label class="apply-upload">
+                                <input type="file" name="photo" accept="image/*" required>
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <span class="apply-upload-text">Click to upload a recent passport photo</span>
+                                <span class="apply-upload-hint">PNG or JPG, up to 2MB</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Contact -->
+                <div class="apply-step" data-step="1">
+                    <h4 class="apply-step-title"><i class="fa-solid fa-address-book"></i> Contact Information</h4>
+                    <div class="apply-grid">
+                        <div class="apply-field">
+                            <label>Phone Number <span>*</span></label>
+                            <input type="tel" name="phone" required placeholder="+1 555 000 0000">
+                        </div>
+                        <div class="apply-field">
+                            <label>Email Address <span>*</span></label>
+                            <input type="email" name="email" required placeholder="you@example.com">
+                        </div>
+                        <div class="apply-field full">
+                            <label>Residential Address <span>*</span></label>
+                            <input type="text" name="residential_address" required placeholder="Street, City, State, Country">
+                        </div>
+                        <div class="apply-field full">
+                            <label>Mailing Address</label>
+                            <input type="text" name="mailing_address" placeholder="Leave blank if same as residential">
+                        </div>
+                        <div class="apply-field">
+                            <label>Emergency Contact Name <span>*</span></label>
+                            <input type="text" name="emg_name" required>
+                        </div>
+                        <div class="apply-field">
+                            <label>Emergency Contact Phone <span>*</span></label>
+                            <input type="tel" name="emg_phone" required>
+                        </div>
+                        <div class="apply-field full">
+                            <label>Relationship to Emergency Contact <span>*</span></label>
+                            <input type="text" name="emg_relationship" required placeholder="e.g. Spouse, Sibling">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: ID & Verification -->
+                <div class="apply-step" data-step="2">
+                    <h4 class="apply-step-title"><i class="fa-solid fa-id-card"></i> Identification &amp; Verification</h4>
+                    <div class="apply-grid">
+                        <div class="apply-field">
+                            <label>National ID Number <span>*</span></label>
+                            <input type="text" name="national_id" required>
+                        </div>
+                        <div class="apply-field">
+                            <label>ID Type <span>*</span></label>
+                            <select name="id_type" required>
+                                <option value="">Select...</option>
+                                <option>National ID Card</option>
+                                <option>International Passport</option>
+                                <option>Driver's Licence</option>
+                                <option>Voter's Card</option>
+                            </select>
+                        </div>
+                        <div class="apply-field">
+                            <label>Passport Number</label>
+                            <input type="text" name="passport_number">
+                        </div>
+                        <div class="apply-field">
+                            <label>Driver's Licence Number</label>
+                            <input type="text" name="licence_number">
+                        </div>
+                        <div class="apply-field">
+                            <label>Social Security Number (SSN)</label>
+                            <input type="text" name="ssn">
+                        </div>
+                        <div class="apply-field">
+                            <label>Tax Identification Number</label>
+                            <input type="text" name="tin">
+                        </div>
+                        <div class="apply-field full">
+                            <label>Proof of Address <span>*</span></label>
+                            <label class="apply-upload small">
+                                <input type="file" name="proof_of_address" accept="image/*,.pdf" required>
+                                <i class="fa-solid fa-file-arrow-up"></i>
+                                <span class="apply-upload-text">Upload a utility bill or bank statement</span>
+                            </label>
+                        </div>
+                        <div class="apply-field full">
+                            <label>Work Permit / Residence Permit <em>(if applicable)</em></label>
+                            <label class="apply-upload small">
+                                <input type="file" name="work_permit" accept="image/*,.pdf">
+                                <i class="fa-solid fa-file-arrow-up"></i>
+                                <span class="apply-upload-text">Upload permit (skip if not applicable)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4: Education -->
+                <div class="apply-step" data-step="3">
+                    <h4 class="apply-step-title"><i class="fa-solid fa-graduation-cap"></i> Educational Background</h4>
+                    <div class="apply-grid">
+                        <div class="apply-field">
+                            <label>Highest Qualification <span>*</span></label>
+                            <select name="qualification" required>
+                                <option value="">Select...</option>
+                                <option>High School</option>
+                                <option>Bachelor's Degree</option>
+                                <option>Master's Degree</option>
+                                <option>Doctorate</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="apply-field">
+                            <label>Institution <span>*</span></label>
+                            <input type="text" name="institution" required>
+                        </div>
+                        <div class="apply-field">
+                            <label>Course / Field of Study <span>*</span></label>
+                            <input type="text" name="course" required>
+                        </div>
+                        <div class="apply-field">
+                            <label>Graduation Year <span>*</span></label>
+                            <input type="number" name="grad_year" min="1950" max="2035" required>
+                        </div>
+                        <div class="apply-field full">
+                            <label>Other Qualifications</label>
+                            <input type="text" name="other_quals">
+                        </div>
+                        <div class="apply-field full">
+                            <label>Professional Certifications</label>
+                            <input type="text" name="certifications">
+                        </div>
+                        <div class="apply-field full">
+                            <label>Relevant Training</label>
+                            <input type="text" name="training">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 5: Employment History -->
+                <div class="apply-step" data-step="4">
+                    <h4 class="apply-step-title"><i class="fa-solid fa-briefcase"></i> Employment History</h4>
+                    <div class="apply-grid">
+                        <div class="apply-field full">
+                            <label>Current / Most Recent Employer <span>*</span></label>
+                            <input type="text" name="recent_employer" required>
+                        </div>
+                        <div class="apply-field">
+                            <label>Job Title <span>*</span></label>
+                            <input type="text" name="recent_title" required>
+                        </div>
+                        <div class="apply-field">
+                            <label>Employment Start Date <span>*</span></label>
+                            <input type="date" name="recent_start" required>
+                        </div>
+                        <div class="apply-field">
+                            <label>Employment End Date</label>
+                            <input type="date" name="recent_end">
+                        </div>
+                        <div class="apply-field">
+                            <label>Previous Employers</label>
+                            <input type="text" name="prev_employers">
+                        </div>
+                        <div class="apply-field">
+                            <label>Previous Job Titles</label>
+                            <input type="text" name="prev_titles">
+                        </div>
+                        <div class="apply-field full">
+                            <label>Main Responsibilities</label>
+                            <textarea name="responsibilities" rows="3"></textarea>
+                        </div>
+                        <div class="apply-field full">
+                            <label>Reason for Leaving</label>
+                            <input type="text" name="reason_leaving">
+                        </div>
+                        <div class="apply-field">
+                            <label>Previous Supervisor / HR Contact</label>
+                            <input type="text" name="supervisor_contact">
+                        </div>
+                        <div class="apply-field">
+                            <label>Professional References</label>
+                            <input type="text" name="references">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 6: Professional -->
+                <div class="apply-step" data-step="5">
+                    <h4 class="apply-step-title"><i class="fa-solid fa-award"></i> Professional Information</h4>
+                    <div class="apply-grid">
+                        <div class="apply-field">
+                            <label>Current Job Title <span>*</span></label>
+                            <input type="text" name="current_title" required>
+                        </div>
+                        <div class="apply-field">
+                            <label>Years of Experience <span>*</span></label>
+                            <input type="number" name="years_experience" min="0" max="60" required>
+                        </div>
+                        <div class="apply-field full">
+                            <label>Key Skills</label>
+                            <input type="text" name="key_skills" placeholder="e.g. Negotiation, Client Relations">
+                        </div>
+                        <div class="apply-field full">
+                            <label>Technical Skills</label>
+                            <input type="text" name="tech_skills">
+                        </div>
+                        <div class="apply-field full">
+                            <label>Software / Tools</label>
+                            <input type="text" name="software">
+                        </div>
+                        <div class="apply-field">
+                            <label>Languages</label>
+                            <input type="text" name="languages" placeholder="e.g. English, Spanish">
+                        </div>
+                        <div class="apply-field">
+                            <label>Professional Memberships</label>
+                            <input type="text" name="memberships">
+                        </div>
+                        <div class="apply-field full">
+                            <label>Professional Licences</label>
+                            <input type="text" name="licences">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 7: Salary & Payroll -->
+                <div class="apply-step" data-step="6">
+                    <h4 class="apply-step-title"><i class="fa-solid fa-money-check-dollar"></i> Salary &amp; Payroll Information</h4>
+                    <div class="apply-grid">
+                        <div class="apply-field">
+                            <label>Expected Salary <span>*</span></label>
+                            <input type="text" name="expected_salary" required placeholder="e.g. $70,000 / yr">
+                        </div>
+                        <div class="apply-field">
+                            <label>Agreed Salary</label>
+                            <input type="text" name="agreed_salary">
+                        </div>
+                        <div class="apply-field">
+                            <label>Bank Name <span>*</span></label>
+                            <input type="text" name="bank_name" required>
+                        </div>
+                        <div class="apply-field">
+                            <label>Account Name <span>*</span></label>
+                            <input type="text" name="account_name" required>
+                        </div>
+                        <div class="apply-field">
+                            <label>Account Number <span>*</span></label>
+                            <input type="text" name="account_number" required>
+                        </div>
+                        <div class="apply-field">
+                            <label>Tax Information</label>
+                            <input type="text" name="tax_info">
+                        </div>
+                        <div class="apply-field full">
+                            <label>Pension Information</label>
+                            <input type="text" name="pension_info">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 8: Emergency & Other -->
+                <div class="apply-step" data-step="7">
+                    <h4 class="apply-step-title"><i class="fa-solid fa-circle-info"></i> Emergency &amp; Other Information</h4>
+                    <div class="apply-grid">
+                        <div class="apply-field full">
+                            <label>Emergency Contact <span>*</span></label>
+                            <input type="text" name="final_emergency_contact" required>
+                        </div>
+                        <div class="apply-field full">
+                            <label>Medical / Emergency Information</label>
+                            <textarea name="medical_info" rows="2" placeholder="Only if legitimately required for the role"></textarea>
+                        </div>
+                        <div class="apply-field">
+                            <label>Availability / Start Date <span>*</span></label>
+                            <input type="date" name="start_date" required>
+                        </div>
+                        <div class="apply-field">
+                            <label>Preferred Work Location</label>
+                            <input type="text" name="preferred_location">
+                        </div>
+                        <div class="apply-field">
+                            <label>Employment Type <span>*</span></label>
+                            <select name="employment_type" required>
+                                <option value="">Select...</option>
+                                <option>Full-time</option>
+                                <option>Part-time</option>
+                                <option>Contract</option>
+                                <option>Remote</option>
+                                <option>Internship</option>
+                            </select>
+                        </div>
+                        <div class="apply-field full">
+                            <label>Additional Information</label>
+                            <textarea name="additional_info" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Controls -->
+            <div class="apply-modal-footer">
+                <button type="button" class="btn apply-btn-ghost" id="applyBackBtn" disabled>
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </button>
+                <button type="button" class="btn btn-primary" id="applyNextBtn">
+                    Next <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <button type="submit" class="btn btn-primary" id="applySubmitBtn" hidden>
+                    Submit Application <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </form>
+
+        <!-- Success State -->
+        <div class="apply-success" id="applySuccess" hidden>
+            <div class="apply-success-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3>Application Submitted</h3>
+            <p>Thanks for applying! Our team will review your application and get back to you within 5–7 business days.</p>
+            <button class="btn btn-primary" data-close-modal>Close</button>
+        </div>
+    </div>
+</div>
